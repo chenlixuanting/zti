@@ -1,6 +1,6 @@
 package cn.edu.guet.zti.web.service.impl;
 
-import cn.edu.guet.zti.web.dao.HotDestinationMapper;
+import cn.edu.guet.zti.web.mapper.HotDestinationMapper;
 import cn.edu.guet.zti.web.pojo.HotDestination;
 import cn.edu.guet.zti.web.service.HotDestinationService;
 import org.springframework.beans.factory.annotation.Autowired;

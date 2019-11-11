@@ -1,4 +1,4 @@
-package cn.edu.guet.zti.web.dao;
+package cn.edu.guet.zti.web.mapper;
 
 import java.util.List;
 
