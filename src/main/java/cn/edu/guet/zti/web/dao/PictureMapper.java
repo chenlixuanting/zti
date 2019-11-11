@@ -1,8 +1,9 @@
 package cn.edu.guet.zti.web.dao;
 
-import cn.edu.guet.web.pojo.Picture;
-import cn.edu.guet.web.pojo.PictureExample;
 import java.util.List;
+
+import cn.edu.guet.zti.web.pojo.Picture;
+import cn.edu.guet.zti.web.pojo.PictureExample;
 import org.apache.ibatis.annotations.Param;
 
 public interface PictureMapper {

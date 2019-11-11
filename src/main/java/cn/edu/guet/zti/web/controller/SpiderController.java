@@ -1,9 +1,9 @@
 package cn.edu.guet.zti.web.controller;
 
-import cn.edu.guet.web.pojo.Result;
-import cn.edu.guet.web.webmagic.downloader.CustomHttpClientDownloader;
-import cn.edu.guet.web.webmagic.pipeline.HotDestinationPipeline;
-import cn.edu.guet.web.webmagic.processor.HotDestinationPageProcessor;
+import cn.edu.guet.zti.web.pojo.Result;
+import cn.edu.guet.zti.web.webmagic.downloader.CustomHttpClientDownloader;
+import cn.edu.guet.zti.web.webmagic.pipeline.HotDestinationPipeline;
+import cn.edu.guet.zti.web.webmagic.processor.HotDestinationPageProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Controller;
@@ -52,7 +52,6 @@ public class SpiderController {
         try {
             synchronized (SpiderController.class) {
                 taskExecutor.execute(new Runnable() {
-                    @Override
                     public void run() {
                         Spider
                                 .create(hotDestinationPageProcessor)

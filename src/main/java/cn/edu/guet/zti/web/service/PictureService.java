@@ -1,6 +1,7 @@
 package cn.edu.guet.zti.web.service;
 
-import cn.edu.guet.web.pojo.Picture;
+
+import cn.edu.guet.zti.web.pojo.Picture;
 
 /**
  * @author Administrator

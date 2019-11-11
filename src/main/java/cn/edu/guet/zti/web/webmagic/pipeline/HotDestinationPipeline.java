@@ -1,9 +1,9 @@
 package cn.edu.guet.zti.web.webmagic.pipeline;
 
-import cn.edu.guet.web.pojo.HotDestination;
-import cn.edu.guet.web.pojo.Picture;
-import cn.edu.guet.web.service.HotDestinationService;
-import cn.edu.guet.web.service.PictureService;
+import cn.edu.guet.zti.web.pojo.HotDestination;
+import cn.edu.guet.zti.web.pojo.Picture;
+import cn.edu.guet.zti.web.service.HotDestinationService;
+import cn.edu.guet.zti.web.service.PictureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package cn.edu.guet.zti.web.service;
 
-import cn.edu.guet.web.pojo.HotDestination;
+import cn.edu.guet.zti.web.pojo.HotDestination;
 
 /**
  * @author Administrator

@@ -45,7 +45,7 @@
 
     <!--配置Springmvc环境-->
     <servlet>
-        <servlet-name>spring5mvc</servlet-name>
+        <servlet-name>spring4mvc</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -56,7 +56,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>spring5mvc</servlet-name>
+        <servlet-name>spring4mvc</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
@@ -68,7 +68,7 @@
     <filter-mapping>
         <filter-name>HiddenHttpMethodFilter</filter-name>
         <!-- 备注，这边的名称必须和配置'springmvc'的servlet名称一样 -->
-        <servlet-name>spring5mvc</servlet-name>
+        <servlet-name>spring4mvc</servlet-name>
     </filter-mapping>
 
     <!--配置session 的超时时间单位为分钟-->

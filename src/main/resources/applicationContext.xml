@@ -14,7 +14,7 @@
        http://www.springframework.org/schema/task/spring-task.xsd">
 
     <!--自动扫描com.guet.myblog包下标注@Controller等注解的类控制器类-->
-    <context:component-scan base-package="cn.edu.guet.web"/>
+    <context:component-scan base-package="cn.edu.guet.zti.web"/>
 
     <!--注解驱动，自动帮我们注入最新版的处理器映射器和处理器适配器-->
     <!--<mvc:annotation-driven conversion-service="conversionService"/>-->
