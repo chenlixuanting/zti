@@ -15,6 +15,7 @@ public class PlacePageProcessor implements PageProcessor {
 
     // process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑
     public void process(Page page) {
+
         //图片链接
         page.putField("pictureLink", page.getHtml().xpath("//a[@class='ttd_nopic100']/img/@src").all());
         //景点名称
