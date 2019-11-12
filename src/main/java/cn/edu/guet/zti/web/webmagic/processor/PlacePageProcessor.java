@@ -28,8 +28,6 @@ public class PlacePageProcessor implements PageProcessor {
         //推荐景点链接（这里携程重定向到了买票页面）
         page.putField("hotSightLink", XIECHENG_URL + page.getHtml()
                 .xpath("//div[@class='list_mod1']/dl/dd[@class='ellipsis']/a/@href").all());
-
-
         page.addTargetRequests(page.getHtml().links().regex("https://you.ctrip.com/countrysightlist/guangxi100052/p"
                 + "\\d" + ".html").all());
     }
