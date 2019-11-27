@@ -13,126 +13,73 @@ import java.util.List;
 public class UrlFileDownloadUtil {
 
     /**
-     * 传入要下载的图片的url列表，将url所对应的图片下载到本地
+     * 往给定目录写到一个文件
      *
-     * @param urlList
-     * @param names
+     * @param fileUrl
+     * @param directory
      */
-    public static void downloadPictures(List<String> urlList, List<String> names, String baseDir) throws IOException {
-//        String baseDir = "E:\\spider\\";
-        URL url = null;
-
-        for (int i = 0; i < urlList.size(); i++) {
-            url = new URL(urlList.get(i));
-            DataInputStream dataInputStream = new DataInputStream(url.openStream());
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(baseDir + names.get(i)));
-
-            byte[] buffer = new byte[1024 * 50];
-            int length;
-
-            while ((length = dataInputStream.read(buffer)) > 0) {
-                fileOutputStream.write(buffer, 0, length);
-            }
-            System.out.println("已经下载：" + baseDir + names.get(i));
-            dataInputStream.close();
-            fileOutputStream.close();
+    private static void writeFile(String fileUrl, File directory) {
+        String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+        File file = new File(directory + "\\" + fileName);
+        if (file.exists()) {
+            System.out.println("文件已存在" + file);
+            return;
         }
-
-    }
-
-    /**
-     * @param urlList
-     */
-    public static void downloadPictures(List<String> urlList, String baseDir) {
-//        String baseDir = "E:\\spider\\";
-        URL url = null;
-
-        for (int i = 0; i < urlList.size(); i++) {
-            try {
-                String[] files = urlList.get(i).split("/");
-                String name = files[files.length - 1];
-                url = new URL(urlList.get(i));
-                DataInputStream dataInputStream = new DataInputStream(url.openStream());
-                FileOutputStream fileOutputStream = new FileOutputStream(new File(baseDir + name));
-
-                byte[] buffer = new byte[1024 * 50];
-                int length;
-
-                while ((length = dataInputStream.read(buffer)) > 0) {
-                    fileOutputStream.write(buffer, 0, length);
-                }
-                System.out.println("已经下载：" + baseDir + name);
-                dataInputStream.close();
-                fileOutputStream.close();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * 下载一张图片
-     *
-     * @param u
-     * @param name
-     */
-//    public static void downloadPicture(String u, String name, String baseDir) throws IOException {
-//        File dirFile = new File(baseDir);
-//        if (!dirFile.exists()) {
-//            //如果目录不存在，则创建目录
-//            dirFile.mkdir();
-//        }
-//        File destFile = new File(baseDir + '\\' + name);
-//        URL url = null;
-//        url = new URL(u);
-//        DataInputStream dataInputStream = new DataInputStream(url.openStream());
-//        FileOutputStream fileOutputStream = new FileOutputStream(destFile);
-//        byte[] buffer = new byte[1024 * 50];
-//        int length;
-//        while ((length = dataInputStream.read(buffer)) > 0) {
-//            fileOutputStream.write(buffer, 0, length);
-//        }
-//        System.out.println("已经下载：" + baseDir + name);
-//        dataInputStream.close();
-//        fileOutputStream.close();
-//    }
-
-    /**
-     * 下载一张图片
-     *
-     * @param u
-     * @param baseDir
-     * @return
-     */
-    public static String downloadPicture(String u, String baseDir, String pictureAccessPath) {
-        File dirFile = new File(baseDir);
-        if (!dirFile.exists()) {
-            //如果目录不存在，则创建目录
-            dirFile.mkdir();
-        }
-        URL url = null;
-        String[] files = u.split("/");
-        String name = files[files.length - 1];
         try {
-            url = new URL(u);
+            SslUtils.ignoreSsl();
+            URL url = new URL(fileUrl);
             DataInputStream dataInputStream = new DataInputStream(url.openStream());
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(baseDir + '\\' + name));
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
             byte[] buffer = new byte[1024 * 50];
             int length;
             while ((length = dataInputStream.read(buffer)) > 0) {
                 fileOutputStream.write(buffer, 0, length);
             }
-            System.out.println("已经下载：" + baseDir + name);
             dataInputStream.close();
             fileOutputStream.close();
+            System.out.println("已写入文件：" + fileUrl);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return pictureAccessPath + "/" + name;
+    }
+
+    /**
+     * 下载一张图片
+     *
+     * @param fileUrl
+     * @param directory
+     */
+    public static void downloadFile(String fileUrl, File directory) {
+        if (!directory.exists() && !directory.isDirectory()) {
+            //如果目录不存在，则创建目录,并下载图片
+            directory.mkdir();
+            UrlFileDownloadUtil.writeFile(fileUrl, directory);
+        } else {
+            System.out.println("目录已存在" + directory);
+        }
+
+    }
+
+    /**
+     * 下载一组图片
+     *
+     * @param fileUrlList
+     * @param directory
+     */
+    public static void downloadFiles(List<String> fileUrlList, File directory) {
+        if (!directory.exists() && !directory.isDirectory()) {
+            directory.mkdir();
+        }
+        for (String fileUrl : fileUrlList) {
+            UrlFileDownloadUtil.writeFile(fileUrl, directory);
+        }
+
     }
 
 }

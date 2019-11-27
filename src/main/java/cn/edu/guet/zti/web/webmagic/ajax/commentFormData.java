@@ -13,14 +13,14 @@ public class commentFormData {
     private static final String NOT_ALL_PARAMS_URL = "https://you.ctrip.com/destinationsite/TTDSecond/SharedView/AsynCommentView" +
             "?order=3.0&star=0.0&tourist=0.0&resourcetype=2";
 
-    public Connection.Response getComment(int pagenow, String poiID) throws IOException {
+    public String getComment(int pagenow, String poiID) throws IOException {
         String url = NOT_ALL_PARAMS_URL
                 + "&poiID=" + poiID +"&pagenow=" + pagenow ;
         Connection postConnect = Jsoup.connect(url)
                 .method(Connection.Method.POST)
                 .header("content-type", "application/x-www-form-urlencoded")
                 .validateTLSCertificates(false);
-        return postConnect.execute();
+        return postConnect.execute().body();
     }
 
 }

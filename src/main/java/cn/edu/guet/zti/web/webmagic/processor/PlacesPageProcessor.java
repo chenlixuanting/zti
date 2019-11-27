@@ -9,7 +9,8 @@ import us.codecraft.webmagic.processor.PageProcessor;
  */
 public class PlacesPageProcessor implements PageProcessor {
 
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000);
+    //设置较大的请求间隔时间和超时时间，是因为每次请求都要持久化数据，这需花费时间
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(3000).setTimeOut(5000);
     private final static String XIECHENG_URL = "https://you.ctrip.com/";
     private final static String GUANGXI_SIGHTLIST_URL = "https://you.ctrip.com/countrysightlist/guangxi100052.html";
 
