@@ -28,7 +28,7 @@ public class ToSightPipeline implements Pipeline {
             //根据该地方的链接，进入地方的景点列表页
             placeLink = placeLinkList.get(i).replace("place", "sight");
 
-            Spider.create(new ToSightPageProcessor(UrlUtils.getPlaceUrlId(placeLink)))
+            Spider.create(new ToSightPageProcessor(UrlUtils.getPlaceUrlIdByPlaceLink(placeLink)))
 //                    .addPipeline(new ConsolePipeline())
                     //根据该Spider获取到的景点链接，再创建Spider爬取每一个景点的详细信息
                     .addPipeline(new SightPipeline())

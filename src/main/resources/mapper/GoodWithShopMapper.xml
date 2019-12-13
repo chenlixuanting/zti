@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.zti.web.dao.GoodWithShopDao">
+
+    <resultMap id="goodResultMap" type="GoodWithShop">
+        <id property="gwsId" column="gws_id"></id>
+        <result property="goodUrlId" column="good_url_id"></result>
+        <result property="shopUrlId" column="shop_url_id"></result>
+    </resultMap>
+
+    <insert id="addGoodWithShop" parameterType="GoodWithShop">
+        insert into t_gws(good_url_id,shop_url_id)
+        values(#{goodUrlId},#{shopUrlId});
+    </insert>
+
+    <select id="findGwsByUrlId" parameterType="java.lang.String" resultType="GoodWithShop">
+        select * from t_gws where gws_id=#{gwsId};
+    </select>
+
+    <select id="findGwsByUrlIds" resultType="GoodWithShop">
+        select * from t_gws where good_url_id=#{shopUrlId} and shop_url_id=#{shopUrlId};
+    </select>
+</mapper>

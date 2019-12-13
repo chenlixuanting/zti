@@ -58,7 +58,7 @@ public class UrlFileDownloadUtil {
     public static void downloadFile(String fileUrl, File directory) {
         if (!directory.exists() && !directory.isDirectory()) {
             //如果目录不存在，则创建目录,并下载图片
-            directory.mkdir();
+            directory.mkdirs();
             UrlFileDownloadUtil.writeFile(fileUrl, directory);
         } else {
             System.out.println("目录已存在" + directory);
@@ -74,7 +74,7 @@ public class UrlFileDownloadUtil {
      */
     public static void downloadFiles(List<String> fileUrlList, File directory) {
         if (!directory.exists() && !directory.isDirectory()) {
-            directory.mkdir();
+            directory.mkdirs();
         }
         for (String fileUrl : fileUrlList) {
             UrlFileDownloadUtil.writeFile(fileUrl, directory);

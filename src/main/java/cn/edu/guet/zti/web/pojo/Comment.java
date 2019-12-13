@@ -6,7 +6,7 @@ public class Comment {
     private int commentId;
     private String userName;
     private String content;
-    private Date publishTime;
+    private String publishTime;
     private int score;
     private String sightUrlId;
 
@@ -34,11 +34,11 @@ public class Comment {
         this.content = content;
     }
 
-    public Date getPublishTime() {
+    public String getPublishTime() {
         return publishTime;
     }
 
-    public void setPublishTime(Date publishTime) {
+    public void setPublishTime(String publishTime) {
         this.publishTime = publishTime;
     }
 

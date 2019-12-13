@@ -12,5 +12,6 @@ public class ConsolePipeline implements Pipeline {
         for (Map.Entry<String, Object> entry : resultItems.getAll().entrySet()) {
             System.out.println(entry.getKey() + ":\t" + entry.getValue());
         }
+        System.out.println();
     }
 }

@@ -6,9 +6,11 @@ import cn.edu.guet.zti.web.webmagic.ajax.commentRequestPayload;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.Selectable;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,12 +37,11 @@ public class SightPageProcessor implements PageProcessor {
     }
 
     public void process(Page page) {
+        //景点id
+        String sightUrlId = UrlUtils.getUrlId(page.getUrl().toString());
+        page.putField("sightUrlId", sightUrlId);
         //对应的地方id
         page.putField("placeUrlId", placeUrlId);
-        //景点id
-        String sightUrlId = UrlUtils.getSightUrlId(page.getUrl().toString());
-        page.putField("sightUrlId", sightUrlId);
-
         //根据景点名称的位置，判断是哪一种样式的html页面
         String sightName = page.getHtml().xpath("div[@class='brief-right']/h2/text()").toString();
 
@@ -65,25 +66,30 @@ public class SightPageProcessor implements PageProcessor {
     private static void getBasicInfo(Page page) {
         List<String> picList = page.getHtml()
                 .xpath("//div[@class='carousel-inner']/div/a/img/@src").all();
-        page.putField("sightPictureLink", picList);
+        page.putField("sightPictureLink", picList != null ? picList : " ");
 
         //景点名称
-        page.putField("sightName", page.getHtml()
-                .xpath("div[@class='dest_toptitle detail_tt']/div[@class='cf']/div[@class='f_left']/h1/a/text()"));
+        String sightName = page.getHtml()
+                .xpath("div[@class='dest_toptitle detail_tt']/div[@class='cf']/div[@class='f_left']/h1/a/text()").toString();
+        page.putField("sightName", sightName != null ? sightName : " ");
         //景点地址
-        page.putField("sightAddress", page.getHtml()
-                .xpath("div[@class='s_sight_infor']/p/text()"));
+        String sightAddress = page.getHtml()
+                .xpath("div[@class='s_sight_infor']/p/text()").toString();
+        page.putField("sightAddress", sightAddress != null ? sightAddress : " ");
 
         //开放时间
-        page.putField("openTime", page.getHtml()
-                .xpath("div[@class='s_sight_infor']/dl/dd/text()"));
+        String openTime = page.getHtml()
+                .xpath("div[@class='s_sight_infor']/dl/dd/text()").toString();
+        page.putField("openTime", openTime != null ? openTime : " ");
         //景点评分
-        page.putField("sightScore", page.getHtml()
-                .xpath("ul[@class='detailtop_r_info']/li/span[@class='score']/b/text()"));
+        String sightScore = page.getHtml()
+                .xpath("ul[@class='detailtop_r_info']/li/span[@class='score']/b/text()").toString();
+        page.putField("sightScore", sightScore != null ? sightScore : " ");
 
         //景点介绍(纯为文本)
-        page.putField("sightIntroduction", page.getHtml()
-                .xpath("//div[@class='toggle_s']/div/text()"));
+        String sightIntroduction = page.getHtml()
+                .xpath("//div[@class='toggle_s']/div/text()").toString();
+        page.putField("sightIntroduction", sightIntroduction != null ? sightIntroduction : " ");
 
         //景点等级、电话或者官网,按顺序排列，可能有0个、一个或者多个组合
         SightPageProcessor.getRankPhoneWebSite(page);
@@ -104,12 +110,13 @@ public class SightPageProcessor implements PageProcessor {
             picList = page.getHtml()
                     .xpath("//div[@class='small_photo_wrap']/ul/li/a/img/@src").all();
         }
-        page.putField("sightPictureLink", picList);
+        page.putField("sightPictureLink", picList != null ? picList : " ");
         //景点名称
-        page.putField("sightName", sightName);
+        page.putField("sightName", sightName != null ? sightName : " ");
         //景点地址
-        page.putField("sightAddress", page.getHtml()
-                .xpath("div[@class='brief-right']/ul/li[@data-reactid='43']/span/text()"));
+        String sightAddress = page.getHtml()
+                .xpath("div[@class='brief-right']/ul/li[@data-reactid='43']/span/text()").toString();
+        page.putField("sightAddress", sightAddress != null ? sightAddress : " ");
         //开放时间
         String openTime = page.getHtml()
                 .xpath("div[@class='brief-right']/ul/li[@class='time timeLong']/span/text()").toString();
@@ -117,20 +124,22 @@ public class SightPageProcessor implements PageProcessor {
             openTime = page.getHtml()
                     .xpath("div[@class='brief-right']/ul/li[@class='time']/span/text()").toString();
         }
-        page.putField("openTime", openTime);
+        page.putField("openTime", openTime != null ? openTime : " ");
         //景点评分
-        page.putField("sightScore", page.getHtml()
-                .xpath("div[@class='brief-right']/div[@class='score']/span/i/text()"));
+        String sightScore = page.getHtml()
+                .xpath("div[@class='brief-right']/div[@class='score']/span/i/text()").toString();
+        page.putField("sightScore", sightScore != null ? sightScore : " ");
         //景点介绍
         SightPageProcessor.getIntroduction(page);
 
         //景点等级
-        page.putField("rank", page.getHtml()
-                .xpath("//*[@id=\"root\"]/div/div/div/div/div[3]/div[1]/div[1]/div[3]/div[2]/span/strong/text()"));
+        String rank = page.getHtml()
+                .xpath("//*[@id=\"root\"]/div/div/div/div/div[3]/div[1]/div[1]/div[3]/div[2]/span/strong/text()").toString();
+        page.putField("rank", rank != null ? rank : " ");
         //电话
-        page.putField("phone", "");
+        page.putField("phone", " ");
         //官网
-        page.putField("website", "");
+        page.putField("website", " ");
     }
 
     /**
@@ -142,51 +151,23 @@ public class SightPageProcessor implements PageProcessor {
      * @param page
      */
     private static void getcommentByCommentFormData(Page page) {
-//        //用户评论模块,首页加载了第一部分评论
-//        Selectable commentSelc = page.getHtml().xpath("//div[@id='sightcommentbox']");
-//        //用户昵称
-//        page.putField("userName", commentSelc
-//                .xpath("//div[@class='comment_single']/div[@class='userimg']/span/a/text()").all());
-//        //评论内容
-//        page.putField("commentContent", commentSelc
-//                .xpath("//div/ul/li[@itemprop='description']/span/text()").all());
-//        //评论时间
-//        page.putField("commentTime", commentSelc
-//                .xpath("//div/ul/li[@class='from_link']/span[@class='f_left']/span/em/text()").all());
-//        //用户评分（根据span的style的百分比式宽度值推断出评分）
-//        List<String> scoreList = commentSelc
-//                .xpath("//div/ul/li[@class='title cf']/span[@class='f_left']/span/span/@style").all();
-//        //style值转换成1~5数值
-//        for (int i = 0; i < scoreList.size(); i++) {
-//            String score = scoreList.get(i).substring(6, 8);
-//            if ("10".equals(score)) {
-//                score = "5";
-//            } else if ("80".equals(score)) {
-//                score = "4";
-//            } else if ("60".equals(score)) {
-//                score = "3";
-//            } else if ("40".equals(score)) {
-//                score = "2";
-//            } else if ("20".equals(score)) {
-//                score = "1";
-//            } else {
-//                score = "0";
-//            }
-//            scoreList.set(i, score);
-//        }
-//        page.putField("userScore", scoreList);
-
         String poiId = page.getHtml()
                 .xpath("//div[@id='vacationgrouptour']/@data-arrivecityid").toString();
-        int totalPage = Integer.parseInt(page.getHtml()
-                .xpath("//div[@class='ttd_pager cf']/div/span/b/text()").toString());
-        if (totalPage > needPage) totalPage = needPage;
+        String totalPageStr = page.getHtml()
+                .xpath("//div[@class='ttd_pager cf']/div/span/b/text()").toString();
+        int totalPage = needPage;
+        if (totalPageStr == null) {
+            totalPage = 1;
+        } else {
+            totalPage = Integer.parseInt(totalPageStr);
+            if (totalPage > needPage) totalPage = needPage;
+        }
         try {
             for (int pagenow = 1; pagenow <= totalPage; pagenow++) {
-                String responseBody = new commentFormData().
+                String commentResponse = new commentFormData().
                         getComment(pagenow, poiId);
-                if (responseBody != null)
-                    System.out.println(page.getUrl() + "评论html\n");
+                if (commentResponse == null) continue;
+                SightPageProcessor.resolveComment(page, commentResponse);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -206,19 +187,22 @@ public class SightPageProcessor implements PageProcessor {
         String scriptBody = page.getHtml().xpath("/html/body/script[1]").toString();
         int index = scriptBody.lastIndexOf("cid");
         String cid = scriptBody.substring(index + 6, index + 26);
-        String sightUrlId = UrlUtils.getSightUrlId(page.getUrl().toString());
-        System.out.println("cid值，第" + index + "个字符开始：" + cid);
-        System.out.println(page.getUrl().toString());
-        System.out.println("sightUrlId的值：" + sightUrlId);
+        String sightUrlId = UrlUtils.getUrlId(page.getUrl().toString());
+//        System.out.println("cid值，第" + index + "个字符开始：" + cid);
+//        System.out.println(page.getUrl().toString());
+//        System.out.println("sightUrlId的值：" + sightUrlId);
 
         int responseNum = 50;
         int requestCount = needPage * pageSize / responseNum;
+        ArrayList<String> commentResponseList = new ArrayList<String>();
         try {
             for (int pagenum = 1; pagenum <= requestCount; pagenum++) {
-                String commentJson = new commentRequestPayload()
+                String response = new commentRequestPayload()
                         .getComment(pagenum, pageSize, sightUrlId, cid);
-                System.out.println(page.getUrl() + commentJson);
+                if (response == null) continue;
+                commentResponseList.add(response);
             }
+            page.putField("commentResponseList", commentResponseList != null ? commentResponseList : " ");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -247,15 +231,15 @@ public class SightPageProcessor implements PageProcessor {
                     //有三个
                     page.putField("website", content2);
                 } else {
-                    page.putField("website", "");
+                    page.putField("website", " ");
                 }
             } else if (s1 != null && s1.contains("官")) {
                 //有两个
                 page.putField("website", xpath.xpath("//li[2]/span[2]/a/@href").toString());
-                page.putField("phone", "");
+                page.putField("phone", " ");
             } else {
-                page.putField("phone", "");
-                page.putField("website", "");
+                page.putField("phone", " ");
+                page.putField("website", " ");
             }
         } else if (s != null && s.contains("电")) {
             //最多两个组合
@@ -266,19 +250,19 @@ public class SightPageProcessor implements PageProcessor {
                 //有两个
                 page.putField("website", content2);
             } else {
-                page.putField("website", "");
+                page.putField("website", " ");
             }
-            page.putField("rank", "");
+            page.putField("rank", " ");
         } else if (s != null && s.contains("官")) {
             // 只有一个，即官网
             page.putField("website", xpath.xpath("//li[1]/span[2]/a/@href").toString());
-            page.putField("phone", "");
-            page.putField("rank", "");
+            page.putField("phone", " ");
+            page.putField("rank", " ");
         } else {
             //一个都没有
-            page.putField("rank", "");
-            page.putField("phone", "");
-            page.putField("website", "");
+            page.putField("rank", " ");
+            page.putField("phone", " ");
+            page.putField("website", " ");
         }
     }
 
@@ -294,14 +278,62 @@ public class SightPageProcessor implements PageProcessor {
         boolean isDone = false;
         for (int i = 0; i < introList.size(); i++) {
             if (introList.get(i).length() > 10) {
-                page.putField("sightIntroduction", introList);
                 isDone = true;
                 break;
             }
         }
+        String intro = "";
         if (!isDone) {
-            page.putField("sightIntroduction", page.getHtml()
-                    .xpath("//div[@class='introduce-content']/p/span/text()").all());
+            introList = page.getHtml()
+                    .xpath("//div[@class='introduce-content']/p/span/text()").all();
+            for (String s : introList) {
+                intro += s;
+            }
+            page.putField("sightIntroduction", intro != null ? intro : " ");
+        } else {
+            for (String s : introList) {
+                intro += s;
+            }
+            page.putField("sightIntroduction", intro);
         }
+    }
+
+    /**
+     * 解析返回时html格式的评论div
+     */
+    private static void resolveComment(Page page, String commentResponse) {
+        //转成webmagic.selector.Html方便使用xpath提取
+        Html html = new Html(commentResponse);
+        //用户昵称
+        page.putField("userName", html
+                .xpath("//div[@class='userimg']/span/a/text()").all());
+        //评论内容
+        page.putField("commentContent", html
+                .xpath("//div/ul/li[@itemprop='description']/span/text()").all());
+        //评论时间
+        page.putField("commentTime", html
+                .xpath("//div/ul/li[@class='from_link']/span[@class='f_left']/span/em/text()").all());
+        //用户评分（根据span的style的百分比式宽度值推断出评分）
+        List<String> scoreList = html
+                .xpath("//div/ul/li[@class='title cf']/span[@class='f_left']/span/span/@style").all();
+        //style值转换成1~5数值
+        for (int i = 0; i < scoreList.size(); i++) {
+            String score = scoreList.get(i).substring(6, 8);
+            if ("10".equals(score)) {
+                score = "5";
+            } else if ("80".equals(score)) {
+                score = "4";
+            } else if ("60".equals(score)) {
+                score = "3";
+            } else if ("40".equals(score)) {
+                score = "2";
+            } else if ("20".equals(score)) {
+                score = "1";
+            } else {
+                score = "0";
+            }
+            scoreList.set(i, score);
+        }
+        page.putField("userScore", scoreList);
     }
 }

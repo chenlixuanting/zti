@@ -30,7 +30,7 @@ public class commentRequestPayload {
     private static final String CONTENT_TYPE = "application/json";
     private static final String USER_AGENT_URL = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36";
     private static final String COOKIE = "_abtest_userid=5b35c728-01f4-47c3-bad1-2b00bb431017; Session=smartlinkcode=U130026&smartlinklanguage=zh&SmartLinkKeyWord=&SmartLinkQuary=&SmartLinkHost=; Union=AllianceID=4897&SID=130026&OUID=&Expires=1574050357875; _ga=GA1.2.1846535142.1573445558; _gid=GA1.2.2089114057.1573445558; MKT_Pagesource=PC; _RSG=VvKWcFddEI1sIOhB0CBt0A; _RDG=287bce2ba61244247a304bcc77124a4a91; _RGUID=148e9e73-e681-4e5f-a037-2cc00bad84b6; StartCity_Pkg=PkgStartCity=33; TicketSiteID=SiteID=1013; _RF1=221.7.210.213; _bfa=1.1573445555135.11wz1r.1.1573651931241.1573707546658.14.210; _jzqco=%7C%7C%7C%7C%7C1.482967573.1573445557961.1573707576397.1573707585423.1573707576397.1573707585423.0.0.0.174.174; __zpspc=9.15.1573707548.1573707585.5%232%7Cwww.baidu.com%7C%7C%7C%7C%23; " +
-            "appFloatCnt=258";
+            "appFloatCnt=500";
 
     private static void option(String sightUrlId, String cid) throws IOException {
         Connection optionsConnect = Jsoup.connect(COMMENT_AJAX_URL + cid)

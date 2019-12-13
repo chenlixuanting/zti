@@ -34,7 +34,7 @@ public class PersistentPlacePipeline implements Pipeline {
 
 
         for (int i = 0; i < placeName.size(); i++) {
-            String placeUrlId = UrlUtils.getPlaceUrlId(placeLink.get(i));
+            String placeUrlId = UrlUtils.getPlaceUrlIdByPlaceLink(placeLink.get(i));
 
             //创建目录，下载图片到该目录下
             File picturedirectory = new File(Constant.PICTURE_REAL_PATH + placeUrlId);

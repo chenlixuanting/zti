@@ -1,13 +1,9 @@
 package cn.edu.guet.zti.web.webmagic.pipeline;
 
-import cn.edu.guet.zti.web.constant.Constant;
 import cn.edu.guet.zti.web.util.UrlUtils;
 import cn.edu.guet.zti.web.webmagic.downloader.CustomHttpClientDownloader;
-import cn.edu.guet.zti.web.webmagic.pipeline.persistent.PersistentCommentPipeline;
 import cn.edu.guet.zti.web.webmagic.pipeline.persistent.PersistentSightPipeline;
 import cn.edu.guet.zti.web.webmagic.processor.SightPageProcessor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.Task;
@@ -33,10 +29,9 @@ public class SightPipeline implements Pipeline {
                         .addUrl(UrlUtils.getUrl(link))
                         .setDownloader(new CustomHttpClientDownloader())
                         //查看景点信息
-                        .addPipeline(new ConsolePipeline())
-                        //保存景点基本信息到数据库
+//                        .addPipeline(new ConsolePipeline())
+                        //保存景点详细信息到数据库
                         .addPipeline(persistentSightPipeline)
-//                    .addPipeline(persistentCommentPipeline)
                         .thread(3)
                         .run();
             }

@@ -4,4 +4,6 @@ import cn.edu.guet.zti.web.pojo.Comment;
 
 public interface CommentDao {
     public int addComment(Comment comment);
+
+    public int getCountBySightUrlId(String sightUrlId);
 }
