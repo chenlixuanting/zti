@@ -21,4 +21,8 @@
     <select id="getCountBySightUrlId" parameterType="java.lang.String" resultType="java.lang.Integer">
         select count(*) from t_comment where sight_url_id=#{sightUrlId};
     </select>
+
+    <select id="getCommentByPageNum" resultType="Comment">
+        select * from t_comment where sight_url_id=#{sightUrlId} limit #{start},#{pageSize};
+    </select>
 </mapper>

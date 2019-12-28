@@ -7,7 +7,7 @@ import cn.edu.guet.zti.web.dao.RestaurantDao;
 import cn.edu.guet.zti.web.pojo.Food;
 import cn.edu.guet.zti.web.pojo.FoodWithRestaurant;
 import cn.edu.guet.zti.web.pojo.Restaurant;
-import cn.edu.guet.zti.web.util.UrlFileDownloadUtil;
+import cn.edu.guet.zti.web.util.UrlFileDownloadUtils;
 import cn.edu.guet.zti.web.util.UrlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,7 @@ public class PersistentFoodAndRestaurantPipeline implements Pipeline {
         String picUrl = resultItems.get("picUrl").toString();
         //保存美食图片
         File pictureDirectory = new File(Constant.PICTURE_REAL_PATH + placeUrlId + "\\food\\" + foodUrlId);
-        UrlFileDownloadUtil.downloadFile(picUrl, pictureDirectory);
+        UrlFileDownloadUtils.downloadFile(picUrl, pictureDirectory);
 
         Food food = new Food();
         food.setPlaceUrlId(placeUrlId);
@@ -123,18 +123,18 @@ public class PersistentFoodAndRestaurantPipeline implements Pipeline {
 
             //保存餐馆图片
             File pictureDirectory = new File(Constant.PICTURE_REAL_PATH + placeUrlId + "\\restaurant\\" + restaurantUrlId);
-            UrlFileDownloadUtil.downloadFile(rPicUrlList.get(i), pictureDirectory);
+            UrlFileDownloadUtils.downloadFile(rPicUrlList.get(i), pictureDirectory);
 
             Restaurant restaurant = new Restaurant();
-            restaurant.setrName(rNameList.get(i));
-            restaurant.setrUrlId(restaurantUrlId);
+            restaurant.setRestaurantName(rNameList.get(i));
+            restaurant.setRestaurantUrlId(restaurantUrlId);
             restaurant.setScore(scoreList.get(i));
             restaurant.setAddress(addressList.get(i));
             restaurant.setIntroduction(introList.get(i));
             restaurant.setLink(rLinkList.get(i));
             int j = restaurantDao.addRestaurant(restaurant);
             if (j == 1) {
-                System.out.println("持久化餐馆" + restaurant.getrUrlId() + "\n");
+                System.out.println("持久化餐馆" + restaurant.getRestaurantUrlId() + "\n");
             }
         }
     }

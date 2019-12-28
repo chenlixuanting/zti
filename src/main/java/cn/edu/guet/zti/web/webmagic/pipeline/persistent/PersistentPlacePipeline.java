@@ -4,7 +4,7 @@ import cn.edu.guet.zti.web.constant.Constant;
 import cn.edu.guet.zti.web.dao.PlaceDao;
 import cn.edu.guet.zti.web.pojo.Place;
 import cn.edu.guet.zti.web.util.UrlUtils;
-import cn.edu.guet.zti.web.util.UrlFileDownloadUtil;
+import cn.edu.guet.zti.web.util.UrlFileDownloadUtils;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * 下载图片至WEB-INF/img目录下,一个地方的张图片存放于由地方html名命名的目录下,
+ * 下载图片至webapp/img目录下,一个地方的张图片存放于由地方html名命名的目录下,
  * 地方html名的目录其它目录对应一个景点的图片,
  * 每次请求有10个地方，一个地方对应一张图片，
  * 为了通过MyBatis持久化数据到MySql，需要将此类当成服务处，作为组件由Spring框架管理
@@ -38,7 +38,7 @@ public class PersistentPlacePipeline implements Pipeline {
 
             //创建目录，下载图片到该目录下
             File picturedirectory = new File(Constant.PICTURE_REAL_PATH + placeUrlId);
-            UrlFileDownloadUtil.downloadFile(pictureLink.get(i), picturedirectory);
+            UrlFileDownloadUtils.downloadFile(pictureLink.get(i), picturedirectory);
 
             Place place = new Place();
             place.setPlaceName(placeName.get(i));

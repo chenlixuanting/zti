@@ -2,12 +2,13 @@ package cn.edu.guet.zti.web.pojo;
 
 public class Restaurant {
     private int restaurantId;
-    private String rUrlId;
-    private String rName;
+    private String restaurantUrlId;
+    private String restaurantName;
     private String score;
     private String address;
     private String introduction;
     private String link;
+    private String picName;
 
     public int getRestaurantId() {
         return restaurantId;
@@ -17,20 +18,20 @@ public class Restaurant {
         this.restaurantId = restaurantId;
     }
 
-    public String getrUrlId() {
-        return rUrlId;
+    public String getRestaurantUrlId() {
+        return restaurantUrlId;
     }
 
-    public void setrUrlId(String rUrlId) {
-        this.rUrlId = rUrlId;
+    public void setRestaurantUrlId(String restaurantUrlId) {
+        this.restaurantUrlId = restaurantUrlId;
     }
 
-    public String getrName() {
-        return rName;
+    public String getRestaurantName() {
+        return restaurantName;
     }
 
-    public void setrName(String rName) {
-        this.rName = rName;
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
     public String getScore() {
@@ -65,16 +66,25 @@ public class Restaurant {
         this.link = link;
     }
 
+    public String getPicName() {
+        return picName;
+    }
+
+    public void setPicName(String picName) {
+        this.picName = picName;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
                 "restaurantId=" + restaurantId +
-                ", rUrlId='" + rUrlId + '\'' +
-                ", rName='" + rName + '\'' +
+                ", restaurantUrlId='" + restaurantUrlId + '\'' +
+                ", restaurantName='" + restaurantName + '\'' +
                 ", score='" + score + '\'' +
                 ", address='" + address + '\'' +
                 ", introduction='" + introduction + '\'' +
                 ", link='" + link + '\'' +
+                ", picName='" + picName + '\'' +
                 '}';
     }
 }

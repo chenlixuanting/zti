@@ -26,4 +26,16 @@
     <select id="getAllPlaceUrlId" resultType="java.lang.String">
         select place_url_id from t_place
     </select>
+
+    <select id="getPlacesByPage" resultType="Place">
+        select * from t_place limit #{start},#{pageSize};
+    </select>
+
+    <select id="getTotalPage" resultType="java.lang.Integer">
+        select count(*) from t_place;
+    </select>
+
+    <select id="getplaceNameByUrlId" parameterType="java.lang.String" resultType="java.lang.String">
+        select place_name from t_place where place_url_id=#{placeUrlId};
+    </select>
 </mapper>

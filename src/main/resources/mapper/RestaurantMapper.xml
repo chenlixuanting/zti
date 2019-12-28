@@ -6,8 +6,8 @@
 
     <resultMap id="restaurantResultMap" type="Restaurant">
         <id property="restaurantId" column="restaurant_id"></id>
-        <result property="rUrlId" column="restaurant_url_id"></result>
-        <result property="rName" column="restaurant_name"></result>
+        <result property="restaurantUrlId" column="restaurant_url_id"></result>
+        <result property="restaurantName" column="restaurant_name"></result>
         <result property="score" column="score"></result>
         <result property="address" column="address"></result>
         <result property="introduction" column="introduction"></result>
@@ -16,7 +16,7 @@
 
     <insert id="addRestaurant" parameterType="Restaurant">
         insert into t_restaurant(restaurant_url_id,restaurant_name,score,address,introduction,link)
-        values(#{rUrlId},#{rName},#{score},#{address},#{introduction},#{link});
+        values(#{restaurantUrlId},#{restaurantName},#{score},#{address},#{introduction},#{link});
     </insert>
 
     <select id="findRestaurantByUrlId" parameterType="java.lang.String" resultType="Restaurant">
@@ -26,4 +26,8 @@
     <update id="updateRestaurantLinkByUrlId">
         update t_restaurant set link=#{link} where restaurant_url_id=#{restaurantUrlId};
     </update>
+
+    <select id="findRestaurantByResUrlId" parameterType="java.lang.String" resultType="Restaurant">
+        select * from t_restaurant where restaurant_url_id=#{resUrlId};
+    </select>
 </mapper>

@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Administrator
  */
-public class UrlFileDownloadUtil {
+public class UrlFileDownloadUtils {
 
     /**
      * 往给定目录写到一个文件
@@ -20,7 +20,7 @@ public class UrlFileDownloadUtil {
      */
     private static void writeFile(String fileUrl, File directory) {
         String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-        File file = new File(directory + "\\" + fileName);
+        File file = new File(directory + "/" + fileName);
         if (file.exists()) {
             System.out.println("文件已存在" + file);
             return;
@@ -59,7 +59,7 @@ public class UrlFileDownloadUtil {
         if (!directory.exists() && !directory.isDirectory()) {
             //如果目录不存在，则创建目录,并下载图片
             directory.mkdirs();
-            UrlFileDownloadUtil.writeFile(fileUrl, directory);
+            UrlFileDownloadUtils.writeFile(fileUrl, directory);
         } else {
             System.out.println("目录已存在" + directory);
         }
@@ -77,7 +77,7 @@ public class UrlFileDownloadUtil {
             directory.mkdirs();
         }
         for (String fileUrl : fileUrlList) {
-            UrlFileDownloadUtil.writeFile(fileUrl, directory);
+            UrlFileDownloadUtils.writeFile(fileUrl, directory);
         }
 
     }

@@ -9,4 +9,6 @@ public interface RestaurantDao {
     public Restaurant findRestaurantByUrlId(String restaurantUrlId);
 
     public int updateRestaurantLinkByUrlId(@Param("link") String link, @Param("restaurantUrlId") String restaurantUrlId);
+
+    public Restaurant findRestaurantByResUrlId(String resUrlId);
 }

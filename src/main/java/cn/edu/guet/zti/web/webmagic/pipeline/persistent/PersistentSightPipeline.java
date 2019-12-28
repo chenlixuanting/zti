@@ -5,11 +5,10 @@ import cn.edu.guet.zti.web.dao.CommentDao;
 import cn.edu.guet.zti.web.dao.SightDao;
 import cn.edu.guet.zti.web.pojo.Comment;
 import cn.edu.guet.zti.web.pojo.Sight;
-import cn.edu.guet.zti.web.util.UrlFileDownloadUtil;
+import cn.edu.guet.zti.web.util.UrlFileDownloadUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.ResultItems;
@@ -33,23 +32,24 @@ public class PersistentSightPipeline implements Pipeline {
     public void process(ResultItems resultItems, Task task) {
         String sightUrlId = resultItems.get("sightUrlId").toString();
 
+        //调用commentDao，如果查询一个景点的评论数大于或等于200则不持久化了
+/*        int commentNumber = commentDao.getCountBySightUrlId(sightUrlId);
+        if (commentNumber >= 200) {
+            System.out.println("景点评论数已达到预期：" + sightUrlId + "---" + commentNumber);
+            return;
+        } else if (commentNumber <= 10) {
+            persistentComment(resultItems, sightUrlId);
+        } else {
+            System.out.println("景点评论数可能正常：" + sightUrlId + "---" + commentNumber);
+        }*/
+
+
         //调用sightDao，根据setSightUrlId查询是否存在该景点
         if (sightDao.findSightBySightUrlId(sightUrlId) != null) {
             System.out.println("景点已存在：" + sightUrlId + "\n");
             return;
         }
         persistentBasicInfo(resultItems, sightUrlId);
-
-        //调用commentDao，如果查询一个景点的评论数大于或等于200则不持久化了
-//        int commentNumber = commentDao.getCountBySightUrlId(sightUrlId);
-//        if (commentNumber >= 200) {
-//            System.out.println("景点评论数已达到预期：" + sightUrlId + "---" + commentNumber);
-//            return;
-//        } else if (commentNumber <= 10) {
-//            persistentComment(resultItems, sightUrlId);
-//        } else {
-//            System.out.println("景点评论数可能正常：" + sightUrlId + "---" + commentNumber);
-//        }
 
     }
 
@@ -72,7 +72,7 @@ public class PersistentSightPipeline implements Pipeline {
         String sightIntroduction = resultItems.get("sightIntroduction");
         //创建目录，下载图片到该目录下
         File picturedirectory = new File(Constant.PICTURE_REAL_PATH + placeUrlId + "\\sight\\" + sightUrlId);
-        UrlFileDownloadUtil.downloadFiles(sightPictureLinkList, picturedirectory);
+        UrlFileDownloadUtils.downloadFiles(sightPictureLinkList, picturedirectory);
         Sight sight = new Sight();
         sight.setSightName(sightName);
         sight.setSightUrlId(sightUrlId);

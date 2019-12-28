@@ -21,4 +21,5 @@
     <select id="findShopByUrlId" parameterType="java.lang.String" resultType="Shop">
         select * from t_shop where shop_url_id=#{shopUrlId};
     </select>
+
 </mapper>

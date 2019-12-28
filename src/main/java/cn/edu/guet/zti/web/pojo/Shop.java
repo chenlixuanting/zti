@@ -7,6 +7,7 @@ public class Shop {
     private String shopScore;
     private String commentNum;
     private String shopLink;
+    private String picName;
 
     public int getShopId() {
         return shopId;
@@ -56,6 +57,14 @@ public class Shop {
         this.shopLink = shopLink;
     }
 
+    public String getPicName() {
+        return picName;
+    }
+
+    public void setPicName(String picName) {
+        this.picName = picName;
+    }
+
     @Override
     public String toString() {
         return "Shop{" +
@@ -65,6 +74,7 @@ public class Shop {
                 ", shopScore='" + shopScore + '\'' +
                 ", commentNum='" + commentNum + '\'' +
                 ", shopLink='" + shopLink + '\'' +
+                ", picName='" + picName + '\'' +
                 '}';
     }
 }

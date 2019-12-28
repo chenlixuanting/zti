@@ -1,6 +1,7 @@
 package cn.edu.guet.zti.web.pojo;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sight {
     private int sightId;
@@ -14,6 +15,9 @@ public class Sight {
     private String score;
     private String introduction;
     private String placeUrlId;
+    private ArrayList<String> picNames;
+    private int commentCount;
+    private List<String> introList;
 
     public int getSightId() {
         return sightId;
@@ -103,6 +107,30 @@ public class Sight {
         this.placeUrlId = placeUrlId;
     }
 
+    public ArrayList<String> getPicNames() {
+        return picNames;
+    }
+
+    public void setPicNames(ArrayList<String> picNames) {
+        this.picNames = picNames;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public List<String> getIntroList() {
+        return introList;
+    }
+
+    public void setIntroList(List<String> introList) {
+        this.introList = introList;
+    }
+
     @Override
     public String toString() {
         return "Sight{" +
@@ -113,10 +141,13 @@ public class Sight {
                 ", rank='" + rank + '\'' +
                 ", phone='" + phone + '\'' +
                 ", website='" + website + '\'' +
-                ", openTime=" + openTime +
-                ", score=" + score +
+                ", openTime='" + openTime + '\'' +
+                ", score='" + score + '\'' +
                 ", introduction='" + introduction + '\'' +
                 ", placeUrlId='" + placeUrlId + '\'' +
+                ", picNames=" + picNames +
+                ", commentCount=" + commentCount +
+                ", introList=" + introList +
                 '}';
     }
 }

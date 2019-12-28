@@ -1,5 +1,7 @@
 package cn.edu.guet.zti.web.pojo;
 
+import java.util.List;
+
 public class Good {
     private int goodId;
     private String placeUrlId;
@@ -7,6 +9,8 @@ public class Good {
     private String goodName;
     private String introduction;
     private String likeNum;
+    private String picName;
+    private List<Shop> shopList;
 
     public int getGoodId() {
         return goodId;
@@ -56,6 +60,22 @@ public class Good {
         this.likeNum = likeNum;
     }
 
+    public String getPicName() {
+        return picName;
+    }
+
+    public void setPicName(String picName) {
+        this.picName = picName;
+    }
+
+    public List<Shop> getShopList() {
+        return shopList;
+    }
+
+    public void setShopList(List<Shop> shopList) {
+        this.shopList = shopList;
+    }
+
     @Override
     public String toString() {
         return "Good{" +
@@ -65,6 +85,8 @@ public class Good {
                 ", goodName='" + goodName + '\'' +
                 ", introduction='" + introduction + '\'' +
                 ", likeNum='" + likeNum + '\'' +
+                ", picName='" + picName + '\'' +
+                ", shopList=" + shopList +
                 '}';
     }
 }

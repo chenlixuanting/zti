@@ -30,4 +30,14 @@
     <select id="getAllPlaceUrlId" resultType="java.lang.String">
         select distinct place_url_id from t_sight;
     </select>
+
+    <select id="getSightsByPage" resultType="Sight">
+        SELECT * from t_sight where place_url_id=#{placeUrlId}
+        order by rank desc,introduction desc,score desc
+        limit #{start},#{pageSize};
+    </select>
+
+    <select id="getTotalPage" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from t_sight where place_url_id =#{placeUrlId};
+    </select>
 </mapper>

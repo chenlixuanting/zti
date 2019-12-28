@@ -6,4 +6,5 @@ public interface ShopDao {
     public int addShop(Shop shop);
 
     public Shop findShopByUrlId(String shopUrlId);
+
 }

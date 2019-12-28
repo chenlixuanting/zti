@@ -20,6 +20,10 @@
     </select>
 
     <select id="findGwsByUrlIds" resultType="GoodWithShop">
-        select * from t_gws where good_url_id=#{shopUrlId} and shop_url_id=#{shopUrlId};
+        select * from t_gws where good_url_id=#{goodUrlId} and shop_url_id=#{shopUrlId};
+    </select>
+
+    <select id="findGwsByGoodUrlId" resultType="java.lang.String" parameterType="java.lang.String">
+        select shop_url_id from t_gws where good_url_id=#{goodUrlId} ;
     </select>
 </mapper>

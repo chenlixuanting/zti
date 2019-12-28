@@ -21,4 +21,8 @@
     <select id="findGoodByUrlId" parameterType="java.lang.String" resultType="Good">
         select * from t_good where good_url_id=#{goodUrlId};
     </select>
+
+    <select id="getGoodsByPlaceUrlId" parameterType="java.lang.String" resultType="Good">
+        select * from t_good where place_url_id=#{placeUrlId};
+    </select>
 </mapper>

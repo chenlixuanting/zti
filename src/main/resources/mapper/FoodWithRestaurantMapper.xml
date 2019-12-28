@@ -19,8 +19,8 @@
         select * from t_fwr where fwr_id=#{fwrUrlId};
     </select>
 
-    <select id="findFwrByFoodUrlId" parameterType="java.lang.String" resultType="FoodWithRestaurant">
-        select * from t_fwr where food_url_id=#{foodUrlId};
+    <select id="findFwrByFoodUrlId" parameterType="java.lang.String" resultType="java.lang.String">
+        select restaurant_url_id from t_fwr where food_url_id=#{foodUrlId};
     </select>
 
     <select id="findFwrByRestaurantUrlId" parameterType="java.lang.String" resultType="FoodWithRestaurant">

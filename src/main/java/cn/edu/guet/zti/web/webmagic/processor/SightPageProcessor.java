@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class SightPageProcessor implements PageProcessor {
 
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(3000).setTimeOut(10000);
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(10000).setTimeOut(300000);
     public static final int needPage = 20;
     public static final int pageSize = 10;
     private String placeUrlId;
@@ -49,12 +49,12 @@ public class SightPageProcessor implements PageProcessor {
             //景点基本信息
             SightPageProcessor.getBasicInfo(page);
             //用户评论部分
-//            SightPageProcessor.getcommentByCommentFormData(page);
+            SightPageProcessor.getcommentByCommentFormData(page);
         } else if (sightName != null) {
             //景点基本信息
             SightPageProcessor.getBasicInfo(page, sightName);
             //用户评论部分
-//            SightPageProcessor.getCommentByCommentRequestPayload(page);
+            SightPageProcessor.getCommentByCommentRequestPayload(page);
         }
     }
 
@@ -173,6 +173,7 @@ public class SightPageProcessor implements PageProcessor {
             e.printStackTrace();
         }
     }
+
 
     /**
      * 用户评论部分为Request Payload方式的异步请求，另行处理

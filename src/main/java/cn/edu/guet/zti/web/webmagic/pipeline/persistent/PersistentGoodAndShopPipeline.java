@@ -5,7 +5,7 @@ import cn.edu.guet.zti.web.dao.GoodDao;
 import cn.edu.guet.zti.web.dao.GoodWithShopDao;
 import cn.edu.guet.zti.web.dao.ShopDao;
 import cn.edu.guet.zti.web.pojo.*;
-import cn.edu.guet.zti.web.util.UrlFileDownloadUtil;
+import cn.edu.guet.zti.web.util.UrlFileDownloadUtils;
 import cn.edu.guet.zti.web.util.UrlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +53,7 @@ public class PersistentGoodAndShopPipeline implements Pipeline {
         String picUrl = resultItems.get("picUrl").toString();
         //保存商品图片
         File pictureDirectory = new File(Constant.PICTURE_REAL_PATH + placeUrlId + "\\good\\" + goodUrlId);
-        UrlFileDownloadUtil.downloadFile(picUrl, pictureDirectory);
+        UrlFileDownloadUtils.downloadFile(picUrl, pictureDirectory);
 
         Good good = new Good();
         good.setPlaceUrlId(placeUrlId);
@@ -116,7 +116,7 @@ public class PersistentGoodAndShopPipeline implements Pipeline {
 
             //保存商店图片
             File pictureDirectory = new File(Constant.PICTURE_REAL_PATH + placeUrlId + "\\shop\\" + shopUrlId);
-            UrlFileDownloadUtil.downloadFile(sPicUrlList.get(i), pictureDirectory);
+            UrlFileDownloadUtils.downloadFile(sPicUrlList.get(i), pictureDirectory);
 
             Shop shop = new Shop();
             shop.setShopName(sNameList.get(i));

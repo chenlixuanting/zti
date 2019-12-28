@@ -2,6 +2,8 @@ package cn.edu.guet.zti.web.util;
 
 import cn.edu.guet.zti.web.constant.Constant;
 
+import java.util.HashMap;
+
 public class UrlUtils {
 
     public static String getUrl(String link) {
@@ -12,8 +14,27 @@ public class UrlUtils {
         return placeLink.substring(7, placeLink.indexOf(".html"));
     }
 
-    public static String getPlaceUrlIdBySightLink(String sightLink) {
-        return sightLink.substring(sightLink.indexOf("/sight/") + 7, sightLink.lastIndexOf("/"));
+    public static String judgePlaceOrSgiht(String link, int markLeft, int markRight) {
+        //是否是地方首页
+        if (markLeft - 1 == markRight) {
+            return Constant.PLACE_KEYWORD;
+        } else {
+            return Constant.SIGHT_KEYWORD;
+        }
+    }
+
+    public static HashMap<String, String> getPlaceUrlIdByLink(String link) {
+        HashMap<String, String> map = new HashMap<>();
+        int markLeft = link.indexOf("/sight/") + 7;
+        int markRight = link.lastIndexOf("/");
+        if (UrlUtils.judgePlaceOrSgiht(link, markLeft, markRight).equals(Constant.SIGHT_KEYWORD)) {
+            //景点
+            map.put(Constant.SIGHT_KEYWORD, link.substring(markLeft, markRight));
+        } else {
+            //地方
+            map.put(Constant.PLACE_KEYWORD, link.substring(markLeft + 1, link.indexOf(".html")));
+        }
+        return map;
     }
 
     public static String getPlaceUrlIdByFoodLink(String foodLink) {
@@ -52,4 +73,7 @@ public class UrlUtils {
         return Constant.XIECHENG_ORIGIN_URL + "/sight/" + placeUrlId + "/" + sightUrlId + ".html";
     }
 
+    public static int getPageNumber(String url) {
+        return Integer.parseInt(url.substring(url.indexOf("s0-p") + 4, url.indexOf(".html")));
+    }
 }

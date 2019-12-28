@@ -1,9 +1,13 @@
 package cn.edu.guet.zti.web.pojo;
 
+import java.util.List;
+
 public class Place {
     private int placeId;
     private String placeName;
     private String placeUrlId;
+    private String picName;
+    private List<Sight> sightList;
 
     public int getPlaceId() {
         return placeId;
@@ -29,12 +33,30 @@ public class Place {
         this.placeUrlId = placeUrlId;
     }
 
+    public String getPicName() {
+        return picName;
+    }
+
+    public void setPicName(String picName) {
+        this.picName = picName;
+    }
+
+    public List<Sight> getSightList() {
+        return sightList;
+    }
+
+    public void setSightList(List<Sight> sightList) {
+        this.sightList = sightList;
+    }
+
     @Override
     public String toString() {
         return "Place{" +
                 "placeId=" + placeId +
                 ", placeName='" + placeName + '\'' +
                 ", placeUrlId='" + placeUrlId + '\'' +
+                ", picName='" + picName + '\'' +
+                ", sightList=" + sightList +
                 '}';
     }
 }

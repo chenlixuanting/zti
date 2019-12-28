@@ -1,5 +1,6 @@
 package cn.edu.guet.zti.web.webmagic.processor;
 
+import cn.edu.guet.zti.web.util.UrlUtils;
 import cn.edu.guet.zti.web.webmagic.pipeline.persistent.PersistentSightPipeline;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -34,15 +35,23 @@ public class ToSightPageProcessor implements PageProcessor {
         page.putField("persistentSightPipeline", persistentSightPipeline);
         page.putField("sightLink", page.getHtml().xpath("//div[@class='list_mod2']/div[2]/dl/dt/a/@href").all());
 
-        Selectable links = page.getHtml().xpath("div[@class='pager_v1']").links();
-        if (links != null) {
-            //一页以上，则添加其它页到请求队列（首页不用爬取，避免重复）
-            String url = page.getUrl().toString();
-            if (url.contains("/s0-p")) {
-                url = url.substring(url.indexOf("sight/") + 6, url.indexOf("/s0-p"));
+        List<String> nextPageLinks = page.getHtml().xpath("//div[@class='pager_v1']/a/@href").all();
+
+        //根据翻页规则，只需添加当前页后面的页面，通过比较页码判断
+        String url = page.getUrl().toString();
+        int currentPage = 1;
+        if (url.contains("s0-p")) {
+            currentPage = UrlUtils.getPageNumber(url);
+        }
+        if (nextPageLinks != null) {
+            for (int i = 1; i < nextPageLinks.size() - 1; i++) {
+                String nextPagelink = nextPageLinks.get(i);
+                //过滤
+                if (!nextPagelink.contains("s0-p") ||
+                        (UrlUtils.getPageNumber(nextPagelink) < currentPage)) continue;
+                page.addTargetRequest(UrlUtils.getUrl(nextPagelink));
             }
-            List<String> linkList = links.regex("https://you.ctrip.com/sight/" + url + "/s0-p" + "\\d{1,2}" + ".html").all();
-            page.addTargetRequests(linkList);
+            System.out.println();
         }
     }
 

@@ -21,4 +21,9 @@
     <select id="findFoodByUrlId" parameterType="java.lang.String" resultType="Food">
         select * from t_food where food_url_id=#{foodUrlId};
     </select>
+
+    <select id="getFoodsByPlaceUrlId" parameterType="java.lang.String" resultType="Food">
+        select * from t_food where place_url_id=#{placeUrlId};
+    </select>
+
 </mapper>
